@@ -2,8 +2,9 @@ import uuid
 from pathlib import Path
 
 from lt_memory import *
-from tools.calculator import *
-from tools.filesystem import *
+from tools.calculator import CALCULATOR_TOOLS
+from tools.extras import EXTRA_TOOLS
+from tools.filesystem import FILESYSTEM_TOOLS
 
 SYSTEM_PROMPT = """Your name is Lydia. Named after Skyrim character
 who swore to carry the burdens.
@@ -14,14 +15,9 @@ If the user tells you something important about themselves, remember it.
 Be concise, direct, and useful."""
 
 AVAILABLE_TOOLS = {
-            'get_sum': get_sum,
-            'multiply': multiply,
-            'divide': divide,
-            'list_directory_content': list_directory_content,
-            'get_current_directory': get_current_directory,
-            'is_file': is_file,
-            'get_file_size': get_file_size,
-            'read_file': read_file,
+    **CALCULATOR_TOOLS,
+    **FILESYSTEM_TOOLS,
+    **EXTRA_TOOLS,
 }
 
 class Lydia:

@@ -33,3 +33,9 @@ def divide(x: float, y: float) -> float:
       The result (float) of the division x / y
     """
     return x / y
+
+CALCULATOR_TOOLS = {
+    'get_sum': get_sum,
+    'multiply': multiply,
+    'divide': divide,
+}

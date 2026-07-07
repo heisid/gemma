@@ -60,3 +60,11 @@ def read_file(path: str) -> str|None:
             return f.read()
     finally:
         f.close()
+
+FILESYSTEM_TOOLS = {
+    'list_directory_content': list_directory_content,
+    'get_current_directory': get_current_directory,
+    'is_file': is_file,
+    'get_file_size': get_file_size,
+    'read_file': read_file,
+}
