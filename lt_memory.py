@@ -20,6 +20,7 @@ def init_db(db_path=DB_PATH) -> sqlite3.Connection:
             id          INTEGER PRIMARY KEY AUTOINCREMENT,
             session_id  TEXT NOT NULL,
             role        TEXT NOT NULL,
+            tool_name   TEXT NOT NULL,
             content     TEXT NOT NULL,
             timestamp   TEXT NOT NULL,
             tokens_est  INTEGER DEFAULT 0
@@ -46,11 +47,11 @@ def init_db(db_path=DB_PATH) -> sqlite3.Connection:
     return conn
 
 def save_turn(conn: sqlite3.Connection, session_id: str,
-              role: str, content: str):
+              role: str, content: str, tool_name: str=''):
     conn.execute(
-        "INSERT INTO conversations (session_id, role, content, timestamp, tokens_est) "
-        "VALUES (?, ?, ?, ?, ?)",
-        (session_id, role, content, datetime.utcnow().isoformat(),
+        "INSERT INTO conversations (session_id, role, tool_name, content, timestamp, tokens_est) "
+        "VALUES (?, ?, ?, ?, ?, ?)",
+        (session_id, role, tool_name, content, datetime.utcnow().isoformat(),
          len(content.split()))
     )
     conn.commit()
@@ -112,7 +113,7 @@ def summarize_session(conn: sqlite3.Connection, session_id: str,
         model = get_config("MODEL", "gemma4")
     turns = conn.execute(
         "SELECT role, content FROM conversations "
-        "WHERE session_id = ? ORDER BY id",
+        "WHERE session_id = ? AND role IN ('user', 'assistant') ORDER BY id",
         (session_id,)
     ).fetchall()
 
