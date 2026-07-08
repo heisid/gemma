@@ -5,6 +5,7 @@ from lt_memory import *
 from tools.calculator import CALCULATOR_TOOLS
 from tools.extras import EXTRA_TOOLS
 from tools.filesystem import FILESYSTEM_TOOLS
+from tools.web import WEB_TOOLS
 from utilities import ToolResponse
 
 SYSTEM_PROMPT = """Your name is Lydia. Named after Skyrim character
@@ -19,6 +20,7 @@ Be concise, direct, and useful."""
 AVAILABLE_TOOLS = {
     **CALCULATOR_TOOLS,
     **FILESYSTEM_TOOLS,
+    **WEB_TOOLS,
     **EXTRA_TOOLS,
 }
 
